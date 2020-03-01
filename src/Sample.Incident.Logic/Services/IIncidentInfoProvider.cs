@@ -9,7 +9,7 @@ namespace Sample.Incident.Logic.Services
     /// </summary>
     public interface IIncidentInfoProvider
     {
-        Task<IEnrichedIncidentInfo> GetEnrichedIncidentInfoAsync(string incidentId,
+        Task<EnrichedIncidentInfo> GetEnrichedIncidentInfoAsync(string incidentId,
             CancellationToken cancellationToken = default(CancellationToken));
     }
 }
