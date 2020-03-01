@@ -24,6 +24,7 @@ namespace Sample.Incident.Logic.Services.Implementations
         public async Task<EnrichedIncidentInfo> GetEnrichedIncidentInfoAsync(string incidentId, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate the input
+            // TODO: Use regex instead
             if (string.IsNullOrWhiteSpace(incidentId)) throw new ArgumentException("Incident Id cannot be empty", nameof(incidentId));
 
             // Try to populate incident from the repository
@@ -31,10 +32,14 @@ namespace Sample.Incident.Logic.Services.Implementations
 
             // If incident not found we just return a blank object
             if (incidentInfo == null) return new EnrichedIncidentInfo();
+
+            // TODO: We need to decide how important the weather info is for this service.
+            // We probably don't want to make our service dependent on this external service and should still return 
+            // incident data even if we cannot determine the weather conditions
             
             // Obtain the weather info for incident location and time
             var weatherInfo = await _weatherInfoGateway.GetHistoricalWeatherInfoAsync(incidentInfo.Latitude,
-                incidentInfo.Longitude, incidentInfo.StartedOn, cancellationToken);
+                incidentInfo.Longitude, incidentInfo.StartedOnUtc, cancellationToken);
             
             return new EnrichedIncidentInfo { IncidentInfo = incidentInfo, WeatherInfo = weatherInfo };
         }
