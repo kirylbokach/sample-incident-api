@@ -17,7 +17,9 @@ namespace Sample.Incident.Data
     public class IncidentFileRepository : IIncidentRepository
     {
         private static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars();
-        private const string DataFilesFolder = "data";
+        private static readonly string AppRootFolder = new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent?.FullName ?? string.Empty;
+        private static readonly string DataFilesFolder = "data";
+
 
         /// <inheritdoc />
         public async Task<IIncidentInfo> GetAsync(string incidentId, CancellationToken cancellationToken = default(CancellationToken))
@@ -28,8 +30,7 @@ namespace Sample.Incident.Data
                 return new IncidentInfo();
 
             // Generate the file name
-            var filePath = Path.Combine(new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent.FullName, DataFilesFolder,
-                $"{incidentId}.json");
+            var filePath = Path.Combine(AppRootFolder, DataFilesFolder, $"{incidentId}.json");
 
             // Check if we have the file
             if (!File.Exists(filePath)) return new IncidentInfo();
