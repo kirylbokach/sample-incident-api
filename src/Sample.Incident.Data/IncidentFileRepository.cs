@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -27,7 +28,7 @@ namespace Sample.Incident.Data
                 return new IncidentInfo();
 
             // Generate the file name
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), DataFilesFolder,
+            var filePath = Path.Combine(new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent.FullName, DataFilesFolder,
                 $"{incidentId}.json");
 
             // Check if we have the file
