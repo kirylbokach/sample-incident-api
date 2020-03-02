@@ -9,10 +9,15 @@ namespace Sample.Incident.Logic.Models
     {
         // We assume that all this data will be available for all incidents we store
         decimal Latitude { get; }
+
         decimal Longitude { get; }
+
         DateTime StartedOnUtc { get; }
+
         string Id { get; }
 
         string RawData { get; }
+
+        bool HasValue { get; }
     }
 }

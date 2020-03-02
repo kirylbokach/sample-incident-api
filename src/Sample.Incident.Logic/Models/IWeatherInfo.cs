@@ -5,6 +5,8 @@
     /// </summary>
     public interface IWeatherInfo
     {
-        
+        string RawData { get; }
+
+        bool HasValue { get; }
     }
 }

@@ -35,5 +35,8 @@ namespace Sample.Incident.Data.Models
 
         /// <inheritdoc />
         public string RawData { get; }
+
+        /// <inheritdoc />
+        public bool HasValue => !string.IsNullOrEmpty(Id);
     }
 }

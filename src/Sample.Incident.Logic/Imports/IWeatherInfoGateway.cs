@@ -10,7 +10,7 @@ namespace Sample.Incident.Logic.Imports
     /// </summary>
     public interface IWeatherInfoGateway
     {
-        Task<IWeatherInfo> GetHistoricalWeatherInfoAsync(decimal latitude, decimal longitude, DateTime dateTime,
+        Task<IWeatherInfo> GetHistoricalWeatherInfoAsync(decimal latitude, decimal longitude, DateTime dateTimeUtc,
             CancellationToken cancellationToken = default(CancellationToken));
     }
 }
