@@ -28,7 +28,7 @@ namespace Sample.Incident.WebApi.Controllers
             var json = JObject.Parse(result.IncidentInfo.RawData);
             json.Add("weather", JToken.Parse(result.WeatherInfo.RawData));
 
-            return Ok(json.ToString());
+            return Ok(json);
         }
     }
 }

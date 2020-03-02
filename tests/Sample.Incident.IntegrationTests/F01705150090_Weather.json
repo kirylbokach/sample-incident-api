@@ -1,0 +1,24 @@
+{
+    "latitude": 37.466513,
+    "longitude": -77.428683,
+    "timezone": "America/New_York",
+    "currently": {
+      "time": 1494893778,
+      "summary": "Clear",
+      "icon": "clear-night",
+      "precipIntensity": 0,
+      "precipProbability": 0,
+      "temperature": 68.67,
+      "apparentTemperature": 68.67,
+      "dewPoint": 48.27,
+      "humidity": 0.48,
+      "pressure": 1013.8,
+      "windSpeed": 0.02,
+      "windGust": 0.02,
+      "windBearing": 140,
+      "cloudCover": 0,
+      "uvIndex": 0,
+      "visibility": 9.997
+    },
+    "offset": -4
+  }
