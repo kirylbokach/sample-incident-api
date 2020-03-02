@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -20,15 +21,22 @@ namespace Sample.Incident.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id, CancellationToken cancellationToken)
         {
-            var result = await _incidentInfoProvider.GetEnrichedIncidentInfoAsync(id, cancellationToken);
+            try
+            {
+                var result = await _incidentInfoProvider.GetEnrichedIncidentInfoAsync(id, cancellationToken);
 
-            if (!result.IncidentInfo.HasValue) return NotFound();
+                if (!result.IncidentInfo.HasValue) return NotFound();
 
-            // Serialize the response
-            var json = JObject.Parse(result.IncidentInfo.RawData);
-            json.Add("weather", JToken.Parse(result.WeatherInfo.RawData));
+                // Serialize the response
+                var json = JObject.Parse(result.IncidentInfo.RawData);
+                json.Add("weather", JToken.Parse(result.WeatherInfo.RawData));
 
-            return Ok(json);
+                return Ok(json);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
     }
 }

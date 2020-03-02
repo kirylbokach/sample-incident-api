@@ -35,7 +35,21 @@ namespace Sample.Incident.IntegrationTests
         }
 
         [Theory]
-        [InlineData("")]
+        [InlineData("%20")]
+        [InlineData("%20%20")]
+        public void IncidentsGet_GivenInvalidIncidentId_ShouldReturnBadRequest(string id)
+        {
+            var client = new RestClient("http://localhost:57892/api");
+            var request = new RestRequest($"incidents/{id}");
+
+            var response = client.Get(request);
+
+            Assert.False(response.IsSuccessful);
+            Assert.Equal(HttpStatusCode.BadRequest,response.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("badId")]
         [InlineData("12345")]
         public void IncidentsGet_GivenUnknownIncidentId_ShouldReturnNotFound(string id)
         {
@@ -45,7 +59,7 @@ namespace Sample.Incident.IntegrationTests
             var response = client.Get(request);
 
             Assert.False(response.IsSuccessful);
-            Assert.Equal(HttpStatusCode.NotFound,response.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 
